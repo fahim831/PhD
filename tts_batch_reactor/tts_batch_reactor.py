@@ -17,7 +17,7 @@ from tabulate import tabulate
 sys.path.append(os.path.abspath("/workspaces/PhD/"))
 from subfunctions import fn_lib, sparse_iden, ode_recon, batch, data_generator_batch, prin_curve, NN_trainer_2_hidden_layers
 
-class ProcessSystemsEngineering:
+class TwoTimeScaleBatchReactor:
     def __init__(self):
         self.t_0 = 0
         self.t_f = 10
@@ -100,12 +100,12 @@ def plot_results(t, sol_diff, ROM, Full):
     plt.savefig('./fig/Results.png', format='png')
 
 if __name__ == "__main__":
-    SINDy_ROM = ProcessSystemsEngineering()
+    SINDy_ROM = TwoTimeScaleBatchReactor()
     SINDy_ROM.train_neural_network('tts_batch_reactor_NLPCA_output.pickle')
     SINDy_ROM.sparse_identification(lam=0.5, num_SINDy_states=2)
     SINDy_ROM.predictor(num_SINDy_states=2)
     
-    SINDy_Full = ProcessSystemsEngineering()
+    SINDy_Full = TwoTimeScaleBatchReactor()
     SINDy_Full.train_neural_network('tts_batch_reactor_NLPCA_output.pickle')
     SINDy_Full.sparse_identification(lam=0.13, num_SINDy_states=3)
     SINDy_Full.predictor(num_SINDy_states=3)
